@@ -1,0 +1,234 @@
+.app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 100vw;
+  min-height: 100vh;
+  background: linear-gradient(to bottom, #ffefd5, #ffe4b5);
+  box-sizing: border-box;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar {
+  width: 100%;
+  background-color: #ff6347;
+  padding: 15px 0;
+  color: white;
+  font-size: 1.8rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.app-header {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+main {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.filters {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin: 20px 0;
+  flex-wrap: wrap;
+}
+
+.filters input,
+.filters select {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  flex: 1;
+  min-width: 120px;
+  max-width: 200px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.recipe-list {
+  width: 100%;
+  max-width: 1000px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 20px;
+  justify-content: center;
+  padding: 0;
+  list-style: none;
+  margin: 0 auto;
+}
+
+.recipe-item {
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: all 0.5s ease;
+  cursor: pointer;
+  position: relative;
+  height: 300px;
+  perspective: 1000px;
+}
+
+.recipe-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-item.flipped {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  height: 90vh;
+  max-height: 800px;
+  z-index: 100;
+  overflow-y: auto;
+  transition: all 0.5s ease;
+  animation: expand 0.5s ease forwards;
+}
+
+@keyframes expand {
+  from {
+    opacity: 0.7;
+    transform: translate(-50%, -50%) scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.recipe-image {
+  width: 100%;
+  height: 150px;
+  overflow: hidden;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+.recipe-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.recipe-details {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow-y: auto;
+  padding: 10px;
+}
+
+.recipe-details h2 {
+  margin-top: 0;
+  color: #ff6347;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: #ff6347;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.recipe-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.recipe-info p {
+  margin: 5px 0;
+  background-color: #f8f8f8;
+  padding: 5px 10px;
+  border-radius: 5px;
+  font-size: 0.9rem;
+}
+
+.recipe-content {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .recipe-content {
+    grid-template-columns: 1fr;
+  }
+}
+
+.ingredients, .steps {
+  text-align: left;
+  background-color: #f8f8f8;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.ingredients h3, .steps h3 {
+  color: #ff6347;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.ingredients ul, .steps ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.ingredients ul li, .steps ol li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+/* Overlay for the background when a recipe is flipped */
+.app::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.app:has(.flipped)::after {
+  opacity: 1;
+  pointer-events: all;
+}
